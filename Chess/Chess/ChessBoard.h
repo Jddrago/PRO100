@@ -12,6 +12,7 @@ public:
 public: // public methods
 	BoardSquare getBoard(int row, int column);
 	void setBoard(int row, int column, BoardSquare square);
+	void initBoard();
 
 private: // private class members
 	const static int rowMax = 8;

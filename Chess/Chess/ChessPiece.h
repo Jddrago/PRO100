@@ -1,6 +1,8 @@
 #ifndef CHESSPIECE_H_
 #define CHESSPIECE_H_
 
+#include <string>
+
 class ChessPiece
 {
 public:
@@ -8,13 +10,20 @@ public:
 	~ChessPiece();
 
 public: // public methods
-	char getPieceType();
-	void setPieceType(char pieceType);
+	std::string getPieceType();
+	void setPieceType(std::string pieceType);
 	char getPieceColor();
 	void setPieceColor(char color);
+	void getMoves(int row, int column);
+
+public:
+	enum Piece
+	{
+		KING,QUEEN,ROOK,KNIGHT,BISHOP,PAWN
+	};
 
 private: // private class members
-	char m_pieceType;
+	std::string m_pieceType;
 	char m_pieceColor;
 };
 

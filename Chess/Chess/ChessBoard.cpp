@@ -20,3 +20,8 @@ void ChessBoard::setBoard(int row, int column, BoardSquare square)
 {
 	board[row][column] = square;
 }
+
+void ChessBoard::initBoard()
+{
+	// todo initialize all board squares
+}
