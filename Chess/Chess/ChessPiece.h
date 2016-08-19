@@ -13,7 +13,7 @@ public: // public methods
 	char getPieceColor();
 	void setPieceColor(char color);
 
-private: // class members
+private: // private class members
 	char m_pieceType;
 	char m_pieceColor;
 };
