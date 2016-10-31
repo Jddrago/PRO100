@@ -8,6 +8,7 @@ class BoardSquare
 {
 public:
 	BoardSquare();
+	BoardSquare(ChessPiece piece);
 	BoardSquare(ChessPiece piece, std::string backgroundColor);
 	~BoardSquare();
 

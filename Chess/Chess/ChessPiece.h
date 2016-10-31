@@ -14,7 +14,7 @@ public: // public methods
 	void setPieceType(std::string pieceType);
 	char getPieceColor();
 	void setPieceColor(char color);
-	void getMoves(int row, int column);
+	virtual void getMoves(int row, int column);
 
 public:
 	enum Piece

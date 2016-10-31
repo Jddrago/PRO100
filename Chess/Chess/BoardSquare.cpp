@@ -6,6 +6,11 @@ BoardSquare::BoardSquare()
 {
 }
 
+BoardSquare::BoardSquare(ChessPiece piece)
+{
+	setPiece(piece);
+}
+
 BoardSquare::BoardSquare(ChessPiece piece, std::string backgroundColor)
 {
 	setPiece(piece);
