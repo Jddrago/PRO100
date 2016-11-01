@@ -146,11 +146,21 @@
     <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="ChessDriver.cpp" />
     <ClCompile Include="ChessPiece.cpp" />
+    <ClCompile Include="FilePath.cpp" />
+    <ClCompile Include="GameLogger.cpp" />
+    <ClCompile Include="LogMsgType.cpp" />
+    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="timeStamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardSquare.h" />
     <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="ChessPiece.h" />
+    <ClInclude Include="FilePath.h" />
+    <ClInclude Include="GameLogger.h" />
+    <ClInclude Include="LogMsgType.h" />
+    <ClInclude Include="Pawn.h" />
+    <ClInclude Include="timeStamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

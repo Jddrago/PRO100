@@ -25,3 +25,8 @@ void ChessBoard::initBoard()
 {
 	// todo initialize all board squares
 }
+
+bool ChessBoard::validMove(int r1, int c1, int r2, int c2)
+{
+	return false;
+}

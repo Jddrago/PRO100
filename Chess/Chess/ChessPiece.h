@@ -2,6 +2,7 @@
 #define CHESSPIECE_H_
 
 #include <string>
+#include <vector>
 
 class ChessPiece
 {
@@ -22,9 +23,11 @@ public:
 		KING,QUEEN,ROOK,KNIGHT,BISHOP,PAWN
 	};
 
-private: // private class members
+protected: // private class members
 	std::string m_pieceType;
 	char m_pieceColor;
+	std::vector<int,int> validMoves;
+	bool hasMoved = false;
 };
 
 #endif // !CHESSPIECE_H_

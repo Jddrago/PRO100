@@ -13,6 +13,7 @@ public: // public methods
 	BoardSquare getBoard(int row, int column);
 	void setBoard(int row, int column, BoardSquare square);
 	void initBoard();
+	bool validMove(int r1, int c1, int r2, int c2);
 
 private: // private class members
 	const static int rowMax = 8;
