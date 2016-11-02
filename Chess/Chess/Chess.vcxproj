@@ -146,6 +146,7 @@
     <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="ChessDriver.cpp" />
     <ClCompile Include="ChessPiece.cpp" />
+    <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="LogMsgType.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="BoardSquare.h" />
     <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="ChessPiece.h" />
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="LogMsgType.h" />

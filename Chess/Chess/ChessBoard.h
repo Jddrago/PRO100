@@ -10,7 +10,7 @@ public:
 	~ChessBoard();
 
 public: // public methods
-	BoardSquare* getBoard();
+	BoardSquare* getBoard(); // might need to edit
 	BoardSquare getBoardSquare(int row, int column);
 	void setBoardSquare(int row, int column, BoardSquare square);
 	void initBoard();
