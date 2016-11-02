@@ -10,10 +10,13 @@ public:
 	~ChessBoard();
 
 public: // public methods
-	BoardSquare getBoard(int row, int column);
-	void setBoard(int row, int column, BoardSquare square);
+	BoardSquare* getBoard();
+	BoardSquare getBoardSquare(int row, int column);
+	void setBoardSquare(int row, int column, BoardSquare square);
 	void initBoard();
 	bool validMove(int r1, int c1, int r2, int c2);
+	bool check();
+	bool checkmate();
 
 private: // private class members
 	const static int rowMax = 8;

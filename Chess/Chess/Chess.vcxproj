@@ -150,6 +150,7 @@
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="LogMsgType.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="timeStamp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="LogMsgType.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="timeStamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "Point.h"
 
 class ChessPiece
 {
@@ -11,11 +12,9 @@ public:
 	~ChessPiece();
 
 public: // public methods
-	std::string getPieceType();
-	void setPieceType(std::string pieceType);
 	char getPieceColor();
 	void setPieceColor(char color);
-	virtual void getMoves(int row, int column);
+	virtual void availableMoves(int row, int column);
 
 public:
 	enum Piece
@@ -24,10 +23,10 @@ public:
 	};
 
 protected: // private class members
-	std::string m_pieceType;
 	char m_pieceColor;
-	std::vector<int,int> validMoves;
+	std::vector<Point> validMoves;
 	bool hasMoved = false;
+	bool captured = false;
 };
 
 #endif // !CHESSPIECE_H_
