@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Point.h"
+#include "PieceType.h"
 
 class ChessPiece
 {
@@ -15,11 +16,12 @@ public: // public methods
 	char getPieceColor();
 	void setPieceColor(char color);
 	virtual void availableMoves(int row, int column);
+	static std::string EnumToString(PieceType piece);
 
 public:
 	enum Piece
 	{
-		KING,QUEEN,ROOK,KNIGHT,BISHOP,PAWN
+		
 	};
 
 protected: // private class members

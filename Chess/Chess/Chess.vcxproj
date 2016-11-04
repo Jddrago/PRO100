@@ -85,7 +85,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -151,6 +151,7 @@
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="LogMsgType.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="PieceType.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="timeStamp.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="LogMsgType.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="PieceType.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="timeStamp.h" />
   </ItemGroup>
