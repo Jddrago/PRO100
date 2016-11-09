@@ -19,10 +19,11 @@ public: // public methods
 	void setBackgroundColor(std::string backgroundColor);
 	bool getOccupied();
 	void setOccupied(bool occupied);
+	std::string toString();
 
 private: // private class members
-	ChessPiece m_currentPiece;
-	std::string m_backgroundColor;
+	ChessPiece m_currentPiece = ChessPiece();
+	std::string m_backgroundColor = "";
 	bool m_isOccupied = false;
 };
 

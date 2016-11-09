@@ -10,6 +10,7 @@ class ChessPiece
 {
 public:
 	ChessPiece();
+	ChessPiece(char color,char type);
 	~ChessPiece();
 
 public: // public methods
@@ -17,6 +18,9 @@ public: // public methods
 	void setPieceColor(char color);
 	virtual void availableMoves(int row, int column);
 	static std::string EnumToString(PieceType piece);
+	char getPieceType();
+	void setPieceType(char type);
+	std::string toString();
 
 public:
 	enum Piece
@@ -25,8 +29,9 @@ public:
 	};
 
 protected: // private class members
-	char m_pieceColor;
-	std::vector<Point> validMoves;
+	char m_pieceColor ='\000';
+	char m_PieceType = '\000';
+	std::vector<Point> validMoves = std::vector<Point>();
 	bool hasMoved = false;
 	bool captured = false;
 };

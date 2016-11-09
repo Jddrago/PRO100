@@ -6,6 +6,11 @@ Pawn::Pawn()
 {
 }
 
+Pawn::Pawn(char color, char type)
+{
+	ChessPiece(color,type);
+}
+
 
 Pawn::~Pawn()
 {
@@ -13,6 +18,7 @@ Pawn::~Pawn()
 
 void Pawn::getMoves(int row, int column)
 {
+	validMoves.clear();
 	if (m_pieceColor == 'l') 
 	{
 		if (hasMoved) 

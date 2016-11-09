@@ -4,10 +4,11 @@
 #include "ChessPiece.h"
 #include "ChessBoard.h"
 
-class Pawn: ChessPiece
+class Pawn: public ChessPiece
 {
 public:
 	Pawn();
+	Pawn(char color, char type);
 	~Pawn();
 
 public:

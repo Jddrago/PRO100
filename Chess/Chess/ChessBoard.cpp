@@ -1,6 +1,6 @@
 #include "ChessBoard.h"
 
-
+BoardSquare* ChessBoard::board[ChessBoard::rowMax][ChessBoard::columnMax];
 
 ChessBoard::ChessBoard()
 {
@@ -11,24 +11,32 @@ ChessBoard::~ChessBoard()
 {
 }
 
-BoardSquare * ChessBoard::getBoard()
+BoardSquare* ChessBoard::getBoardSquare(int row, int column)
 {
-	return *board;
+	if (row <= rowMax && column <= columnMax)
+	{
+		return board[row][column];
+	}
+	return new BoardSquare();
 }
 
-BoardSquare ChessBoard::getBoardSquare(int row, int column)
+void ChessBoard::setBoardSquare(int row, int column, BoardSquare* square)
 {
-	return board[row][column];
-}
-
-void ChessBoard::setBoardSquare(int row, int column, BoardSquare square)
-{
-	board[row][column] = square;
+	if (row <= rowMax && column <= columnMax)
+	{
+		board[row][column] = square;
+	}
 }
 
 void ChessBoard::initBoard()
 {
-	// todo initialize all board squares
+	for (int i = 0; i < rowMax; i++)
+	{
+		for (int j = 0; j < columnMax; j++)
+		{
+			board[i][j] = new BoardSquare();
+		}
+	}
 }
 
 bool ChessBoard::validMove(int r1, int c1, int r2, int c2)

@@ -51,3 +51,12 @@ void BoardSquare::setOccupied(bool occupied)
 {
 	m_isOccupied = occupied;
 }
+
+std::string BoardSquare::toString()
+{
+	if (getPiece().getPieceType() == NULL) 
+	{
+		return "[--]";
+	}
+	return "[" + getPiece().toString() + "]";
+}
