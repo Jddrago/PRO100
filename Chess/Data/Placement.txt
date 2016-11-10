@@ -30,4 +30,3 @@ Ple2
 Plf2
 Plg2
 Plh2
-e8 g8 h8 f8

@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	//if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
 	//fileReader.ParseGame();
 
-	std::cout << "  A  B  C  D  E  F  G  H " << std::endl;
+	std::cout << "  A   B   C   D   E   F   G   H " << std::endl;
 	for (int i = 0; i < ChessBoard::rowMax; i++)
 	{
 		std::cout << (i + 1);

@@ -64,3 +64,8 @@ std::string ChessPiece::toString()
 	output.append(std::string(1,m_pieceColor));
 	return output;
 }
+
+void ChessPiece::clearMoveVector()
+{
+	validMoves.clear();
+}

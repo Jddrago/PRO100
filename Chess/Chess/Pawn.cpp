@@ -18,7 +18,6 @@ Pawn::~Pawn()
 
 void Pawn::getMoves(int row, int column)
 {
-	validMoves.clear();
 	if (m_pieceColor == 'l') 
 	{
 		if (hasMoved) 

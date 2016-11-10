@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="BoardSquare.cpp" />
     <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="ChessDriver.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="King.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="LogMsgType.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="PieceType.cpp" />
@@ -159,6 +161,7 @@
     <ClCompile Include="timeStamp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bishop.h" />
     <ClInclude Include="BoardSquare.h" />
     <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="ChessPiece.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="King.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="LogMsgType.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="PieceType.h" />

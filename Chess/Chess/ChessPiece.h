@@ -21,6 +21,7 @@ public: // public methods
 	char getPieceType();
 	void setPieceType(char type);
 	std::string toString();
+	void clearMoveVector();
 
 public:
 	enum Piece

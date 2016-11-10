@@ -6,6 +6,8 @@
 #include "King.h"
 #include "Queen.h"
 #include "Rook.h"
+#include "Knight.h"
+#include "Bishop.h"
 
 std::ifstream FileIO::m_moveStream;
 
@@ -42,6 +44,8 @@ std::string FileIO::ParsePlacement(std::string move)
 		break;
 	case 'N':
 		piecetype = ChessPiece::EnumToString(PieceType::KNIGHT);
+		piece = Knight();
+		piece.setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'P':
 		piecetype = ChessPiece::EnumToString(PieceType::PAWN);
@@ -50,6 +54,8 @@ std::string FileIO::ParsePlacement(std::string move)
 		break;
 	case 'B':
 		piecetype = ChessPiece::EnumToString(PieceType::BISHOP);
+		piece = Bishop();
+		piece.setPieceType(std::toupper(move.at(0), loc));
 		break;
 	default:
 		piecetype = "Unknown piece";
