@@ -6,12 +6,12 @@ BoardSquare::BoardSquare()
 {
 }
 
-BoardSquare::BoardSquare(ChessPiece piece)
+BoardSquare::BoardSquare(ChessPiece* piece)
 {
 	setPiece(piece);
 }
 
-BoardSquare::BoardSquare(ChessPiece piece, std::string backgroundColor)
+BoardSquare::BoardSquare(ChessPiece* piece, std::string backgroundColor)
 {
 	setPiece(piece);
 	setBackgroundColor(backgroundColor);
@@ -22,12 +22,12 @@ BoardSquare::~BoardSquare()
 {
 }
 
-ChessPiece BoardSquare::getPiece()
+ChessPiece* BoardSquare::getPiece()
 {
 	return m_currentPiece;
 }
 
-void BoardSquare::setPiece(ChessPiece piece)
+void BoardSquare::setPiece(ChessPiece* piece)
 {
 	m_currentPiece = piece;
 }
@@ -54,9 +54,9 @@ void BoardSquare::setOccupied(bool occupied)
 
 std::string BoardSquare::toString()
 {
-	if (getPiece().getPieceType() == NULL) 
+	if (getPiece()->getPieceType() == NULL)
 	{
 		return "[--]";
 	}
-	return "[" + getPiece().toString() + "]";
+	return "[" + getPiece()->toString() + "]";
 }

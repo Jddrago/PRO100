@@ -11,7 +11,7 @@ public:
 	~Bishop();
 
 public:
-	void getMoves(int row, int column);
+	std::vector<Point> getMoves(int row, int column) override;
 };
 
 #endif // !BISHOP_H_

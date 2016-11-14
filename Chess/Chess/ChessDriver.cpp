@@ -2,16 +2,8 @@
 #include <iostream>
 #include "FileIO.h"
 
-int main(int argc, char** argv) 
+void displayBoard() 
 {
-	ChessBoard::initBoard();
-	FileIO fileReader;
-	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
-	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
-	fileReader.ParseGame();
-	//if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
-	//fileReader.ParseGame();
-
 	std::cout << "  A   B   C   D   E   F   G   H " << std::endl;
 	for (int i = 0; i < ChessBoard::rowMax; i++)
 	{
@@ -22,5 +14,19 @@ int main(int argc, char** argv)
 		}
 		std::cout << std::endl;
 	}
+}
+
+int main(int argc, char** argv) 
+{
+	ChessBoard::initBoard();
+	displayBoard();
+	FileIO fileReader;
+	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
+	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
+	fileReader.ParseGame();
+	if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
+	fileReader.ParseGame();
+	displayBoard();
+
 	return 0;
 }

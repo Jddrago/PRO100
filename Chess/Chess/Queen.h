@@ -11,7 +11,7 @@ public:
 	~Queen();
 
 public:
-	void getMoves(int row, int column);
+	std::vector<Point> getMoves(int row, int column) override;
 };
 
 #endif // !QUEEN_H_

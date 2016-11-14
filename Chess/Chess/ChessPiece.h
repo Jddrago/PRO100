@@ -16,18 +16,12 @@ public:
 public: // public methods
 	char getPieceColor();
 	void setPieceColor(char color);
-	virtual void availableMoves(int row, int column);
 	static std::string EnumToString(PieceType piece);
 	char getPieceType();
 	void setPieceType(char type);
 	std::string toString();
 	void clearMoveVector();
-
-public:
-	enum Piece
-	{
-		
-	};
+	virtual std::vector<Point> getMoves(int row, int column) = 0;
 
 protected: // private class members
 	char m_pieceColor ='\000';

@@ -24,38 +24,38 @@ std::string FileIO::ParsePlacement(std::string move)
 {
 	std::locale loc = std::locale();
 	std::string piecetype,pieceColor,locationP1,locationP2;
-	ChessPiece piece;
+	ChessPiece* piece;
 	switch (std::toupper(move.at(0), loc))
 	{
 	case 'K':
 		piecetype = ChessPiece::EnumToString(PieceType::KING);
-		piece = King();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new King();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'Q':
 		piecetype = ChessPiece::EnumToString(PieceType::QUEEN);
-		piece = Queen();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new Queen();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'R':
 		piecetype = ChessPiece::EnumToString(PieceType::ROOK);
-		piece = Rook();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new Rook();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'N':
 		piecetype = ChessPiece::EnumToString(PieceType::KNIGHT);
-		piece = Knight();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new Knight();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'P':
 		piecetype = ChessPiece::EnumToString(PieceType::PAWN);
-		piece = Pawn();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new Pawn();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	case 'B':
 		piecetype = ChessPiece::EnumToString(PieceType::BISHOP);
-		piece = Bishop();
-		piece.setPieceType(std::toupper(move.at(0), loc));
+		piece = new Bishop();
+		piece->setPieceType(std::toupper(move.at(0), loc));
 		break;
 	default:
 		piecetype = "Unknown piece";
@@ -65,18 +65,18 @@ std::string FileIO::ParsePlacement(std::string move)
 	{
 	case 'l':
 		pieceColor = "Light";
-		piece.setPieceColor(move.at(1));
+		piece->setPieceColor(move.at(1));
 		break;
 	case 'd':
 		pieceColor = "Dark";
-		piece.setPieceColor(move.at(1));
+		piece->setPieceColor(move.at(1));
 		break;
 	default:
 		break;
 	}
 	locationP1 = std::toupper(move.at(2), loc);
 	locationP2 = move.at(3);
-	//GameLogger::Log("%s:Placed %s %s at %s%s",GameLogger::EnumToString(LogMsgType::Info), pieceColor, piecetype, locationP1, locationP2);
+	//GameLogger::Log("%s:Placed %s\n",GameLogger::EnumToString(LogMsgType::Info), move);
 	if (!ChessBoard::getBoardSquare((move.at(3) - '0'-1), (move.at(2) - 'a'))->getOccupied()) 
 	{
 		ChessBoard::setBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'),new BoardSquare(piece));
@@ -87,7 +87,16 @@ std::string FileIO::ParsePlacement(std::string move)
 
 std::string FileIO::ParseMove(std::string move)
 {
-	return "Moved piece at " + move.substr(0,2) + " to " + move.substr(3,2);
+	if (ChessBoard::validateMoves((move.at(1) - '0' - 1), (move.at(0) - 'a'), (move.at(4) - '0' - 1), (move.at(3) - 'a')))
+	{
+		ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a')));
+		ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), new BoardSquare());
+		return "Moved piece at " + move.substr(0, 2) + " to " + move.substr(3, 2);
+	}
+	else 
+	{
+		return "Invalid move";
+	}
 }
 
 std::string FileIO::ParseCastling(std::string move)

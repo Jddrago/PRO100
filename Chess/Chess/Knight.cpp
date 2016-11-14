@@ -1,5 +1,5 @@
 #include "Knight.h"
-
+#include "ChessBoard.h"
 
 
 Knight::Knight()
@@ -8,7 +8,8 @@ Knight::Knight()
 
 Knight::Knight(char color, char type)
 {
-	ChessPiece(color,type);
+	setPieceColor(color);
+	setPieceType(type);
 }
 
 
@@ -16,6 +17,51 @@ Knight::~Knight()
 {
 }
 
-void Knight::getMoves(int row, int column)
+std::vector<Point> Knight::getMoves(int row, int column)
 {
+	if (row + 1 < ChessBoard::rowMax && column + 2 < ChessBoard::columnMax && column - 2 > 0) 
+	{
+		if (!ChessBoard::getBoardSquare(row + 1, column + 2)->getOccupied())
+		{
+			validMoves.push_back(Point(row + 1, column + 2));
+		}
+		if (!ChessBoard::getBoardSquare(row + 1, column - 2)->getOccupied())
+		{
+			validMoves.push_back(Point(row + 1, column - 2));
+		}
+	}
+	if (row + 1 > 0 && column + 2 < ChessBoard::columnMax && column - 2 > 0)
+	{
+		if (!ChessBoard::getBoardSquare(row - 1, column + 2)->getOccupied())
+		{
+			validMoves.push_back(Point(row - 1, column + 2));
+		}
+		if (!ChessBoard::getBoardSquare(row - 1, column - 2)->getOccupied())
+		{
+			validMoves.push_back(Point(row - 1, column - 2));
+		}
+	}
+	if (row + 2 < ChessBoard::rowMax && column + 1 < ChessBoard::columnMax && column - 1 > 0)
+	{
+		if (!ChessBoard::getBoardSquare(row + 2, column + 1)->getOccupied())
+		{
+			validMoves.push_back(Point(row + 2, column + 1));
+		}
+		if (!ChessBoard::getBoardSquare(row + 2, column - 1)->getOccupied())
+		{
+			validMoves.push_back(Point(row + 2, column - 1));
+		}
+	}
+	if (row + 2 > 0 && column + 1 < ChessBoard::columnMax && column - 1 > 0)
+	{
+		if (!ChessBoard::getBoardSquare(row - 2, column + 1)->getOccupied())
+		{
+			validMoves.push_back(Point(row - 2, column + 1));
+		}
+		if (!ChessBoard::getBoardSquare(row - 2, column - 1)->getOccupied())
+		{
+			validMoves.push_back(Point(row - 2, column - 1));
+		}
+	}
+	return validMoves;
 }

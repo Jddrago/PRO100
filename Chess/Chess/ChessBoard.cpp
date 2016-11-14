@@ -39,9 +39,19 @@ void ChessBoard::initBoard()
 	}
 }
 
-bool ChessBoard::validMove(int r1, int c1, int r2, int c2)
+bool ChessBoard::validateMoves(int r1, int c1, int r2, int c2)
 {
-	return false;
+	ChessBoard::getBoardSquare(r1, c1)->getPiece()->clearMoveVector();
+	bool validMove = false;
+	std::vector<Point> possibleMoves = ChessBoard::getBoardSquare(r1, c1)->getPiece()->getMoves(r1, c1);
+	for (unsigned int i = 0; i < possibleMoves.size(); i++)
+	{
+		if (possibleMoves.at(i).getPointX() == r2 && possibleMoves.at(i).getPointY() == c2) 
+		{
+			validMove = true;
+		}
+	}
+	return validMove;
 }
 
 bool ChessBoard::check()

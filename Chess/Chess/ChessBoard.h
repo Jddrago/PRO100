@@ -13,7 +13,7 @@ public: // public methods
 	static BoardSquare* getBoardSquare(int row, int column);
 	static void setBoardSquare(int row, int column, BoardSquare* square);
 	static void initBoard();
-	static bool validMove(int r1, int c1, int r2, int c2);
+	static bool validateMoves(int r1, int c1, int r2, int c2);
 	static bool check();
 	static bool checkmate();
 

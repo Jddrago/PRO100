@@ -27,11 +27,6 @@ void ChessPiece::setPieceColor(char color)
 	m_pieceColor = color;
 }
 
-void ChessPiece::availableMoves(int row, int column)
-{
-	//get all possible moves from location passed in.
-}
-
 std::string ChessPiece::EnumToString(PieceType piece)
 {
 	switch (piece)
@@ -68,4 +63,9 @@ std::string ChessPiece::toString()
 void ChessPiece::clearMoveVector()
 {
 	validMoves.clear();
+}
+
+std::vector<Point> ChessPiece::getMoves(int row, int column)
+{
+	return validMoves;
 }

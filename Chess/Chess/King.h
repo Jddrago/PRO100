@@ -11,7 +11,7 @@ public:
 	~King();
 
 public:
-	void getMoves(int row, int column);
+	std::vector<Point> getMoves(int row, int column) override;
 };
 
 #endif // !KING_H_
