@@ -93,6 +93,7 @@ std::string FileIO::ParseMove(std::string move)
 		ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), new BoardSquare());
 		ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->setOccupied(false);
 		ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->getPiece()->setMoved(true);
+		ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->setOccupied(true);
 		return "Moved piece at " + move.substr(0, 2) + " to " + move.substr(3, 2);
 	}
 	else 
