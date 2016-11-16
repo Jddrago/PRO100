@@ -69,3 +69,8 @@ std::vector<Point> ChessPiece::getMoves(int row, int column)
 {
 	return validMoves;
 }
+
+void ChessPiece::setMoved(bool moved)
+{
+	hasMoved = moved;
+}

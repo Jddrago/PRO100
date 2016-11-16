@@ -54,6 +54,11 @@ bool ChessBoard::validateMoves(int r1, int c1, int r2, int c2)
 	return validMove;
 }
 
+bool ChessBoard::validSquare(int row, int column)
+{
+	return (row >= 0 && row < rowMax) && (column >= 0 && column < columnMax);
+}
+
 bool ChessBoard::check()
 {
 	return false;

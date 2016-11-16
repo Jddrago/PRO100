@@ -19,11 +19,11 @@ Pawn::~Pawn()
 
 std::vector<Point> Pawn::getMoves(int row, int column)
 {
-	if (m_pieceColor == 'l') 
+	if (m_pieceColor == 'd') 
 	{
 		if (hasMoved) 
 		{
-			if (!ChessBoard::getBoardSquare(row, column + 1)->getOccupied())
+			if (!ChessBoard::getBoardSquare(row - 1, column)->getOccupied())
 			{
 				validMoves.push_back(Point(row - 1, column));
 			}
@@ -34,13 +34,13 @@ std::vector<Point> Pawn::getMoves(int row, int column)
 			{
 				validMoves.push_back(Point(row - 1, column));
 			}
-			if (!ChessBoard::getBoardSquare(row - 1, column)->getOccupied())
+			if (!ChessBoard::getBoardSquare(row - 2, column)->getOccupied())
 			{
 				validMoves.push_back(Point(row - 2, column));
 			}
 		}
 	}
-	else if (m_pieceColor == 'd') 
+	else if (m_pieceColor == 'l') 
 	{
 		if (hasMoved)
 		{

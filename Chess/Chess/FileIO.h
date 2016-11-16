@@ -18,6 +18,7 @@ public:
 	std::string ParseMove(std::string move);
 	std::string ParseCastling(std::string move);
 	void ParseGame();
+	void ParseGame(std::string move);
 	bool Parser(const char * const filename);
 
 private:

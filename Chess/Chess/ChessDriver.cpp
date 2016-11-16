@@ -19,14 +19,20 @@ void displayBoard()
 int main(int argc, char** argv) 
 {
 	ChessBoard::initBoard();
-	displayBoard();
+	//displayBoard();
 	FileIO fileReader;
 	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
 	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
 	fileReader.ParseGame();
-	if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
-	fileReader.ParseGame();
-	displayBoard();
+	//if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
+	//fileReader.ParseGame();
+	while (!ChessBoard::checkmate()) 
+	{
+		displayBoard();
+		std::string move;
+		std::getline(std::cin,move);
+		fileReader.ParseGame(move);
+	}
 
 	return 0;
 }

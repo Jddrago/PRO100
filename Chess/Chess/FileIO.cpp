@@ -76,7 +76,7 @@ std::string FileIO::ParsePlacement(std::string move)
 	}
 	locationP1 = std::toupper(move.at(2), loc);
 	locationP2 = move.at(3);
-	//GameLogger::Log("%s:Placed %s\n",GameLogger::EnumToString(LogMsgType::Info), move);
+	GameLogger::Log("%s:Placed %s\n",GameLogger::EnumToString(LogMsgType::Info), move.c_str());
 	if (!ChessBoard::getBoardSquare((move.at(3) - '0'-1), (move.at(2) - 'a'))->getOccupied()) 
 	{
 		ChessBoard::setBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'),new BoardSquare(piece));
@@ -91,6 +91,8 @@ std::string FileIO::ParseMove(std::string move)
 	{
 		ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a')));
 		ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), new BoardSquare());
+		ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->setOccupied(false);
+		ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->getPiece()->setMoved(true);
 		return "Moved piece at " + move.substr(0, 2) + " to " + move.substr(3, 2);
 	}
 	else 
@@ -142,4 +144,27 @@ void FileIO::ParseGame()
 		}
 	}
 	m_moveStream.close();
+}
+
+void FileIO::ParseGame(std::string move)
+{
+	if (std::regex_match(move, std::regex("[KQBNRP][ld][a-h][1-8]")))
+	{
+		std::cout << move << std::endl;
+		std::cout << ParsePlacement(move) << std::endl;
+	}
+	else if (std::regex_match(move, std::regex("[a-h][1-8]\\s[a-h][1-8]")))
+	{
+		std::cout << move << std::endl;
+		std::cout << ParseMove(move) << std::endl;
+	}
+	else if (std::regex_match(move, std::regex("[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]")))
+	{
+		std::cout << move << std::endl;
+		std::cout << ParseCastling(move) << std::endl;
+	}
+	else 
+	{
+		std::cout << "Invalid move notation. Please use standard notations for moves" << std::endl;
+	}
 }

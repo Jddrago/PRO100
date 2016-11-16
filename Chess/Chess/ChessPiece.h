@@ -22,6 +22,7 @@ public: // public methods
 	std::string toString();
 	void clearMoveVector();
 	virtual std::vector<Point> getMoves(int row, int column) = 0;
+	void setMoved(bool moved);
 
 protected: // private class members
 	char m_pieceColor ='\000';

@@ -14,6 +14,7 @@ public: // public methods
 	static void setBoardSquare(int row, int column, BoardSquare* square);
 	static void initBoard();
 	static bool validateMoves(int r1, int c1, int r2, int c2);
+	static bool validSquare(int row, int column);
 	static bool check();
 	static bool checkmate();
 

@@ -20,100 +20,21 @@ Queen::~Queen()
 std::vector<Point> Queen::getMoves(int row, int column)
 {
 	bool pieceDetected = false;
-	for (int i = 1; (row + i < ChessBoard::rowMax) || (column + i < ChessBoard::columnMax) && !pieceDetected; i++)
+	for (int mod = 0; mod < ChessBoard::rowMax; mod++)
 	{
-		if (!ChessBoard::getBoardSquare(row + i, column + i)->getOccupied())
+		for (int i = -1; i <= 1; i++)
 		{
-			validMoves.push_back(Point(row + i, column + i));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = 1; (row + i < ChessBoard::rowMax) || (column + i < ChessBoard::columnMax) && !pieceDetected; i++)
-	{
-		if (!ChessBoard::getBoardSquare(row  -i, column + i)->getOccupied())
-		{
-			validMoves.push_back(Point(row - i, column + i));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = -1; (row + i >= 0) || (column + i >= 0) && !pieceDetected; i--)
-	{
-		if (!ChessBoard::getBoardSquare(row - i, column - i)->getOccupied())
-		{
-			validMoves.push_back(Point(row - i, column - i));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = -1; (row + i >= 0) || (column + i >= 0) && !pieceDetected; i--)
-	{
-		if (!ChessBoard::getBoardSquare(row + i, column - 1)->getOccupied())
-		{
-			validMoves.push_back(Point(row + i, column - i));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = 1; row + i < ChessBoard::rowMax && !pieceDetected; i++)
-	{
-		if (!ChessBoard::getBoardSquare(row + i, column)->getOccupied())
-		{
-			validMoves.push_back(Point(row + i, column));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = 1; column + i < ChessBoard::columnMax && !pieceDetected; i++)
-	{
-		pieceDetected = false;
-		if (!ChessBoard::getBoardSquare(row, column + i)->getOccupied())
-		{
-			validMoves.push_back(Point(row, column + i));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = -1; row + i >= 0 && !pieceDetected; i--)
-	{
-		if (!ChessBoard::getBoardSquare(row + i, column)->getOccupied())
-		{
-			validMoves.push_back(Point(row + i, column));
-		}
-		else
-		{
-			pieceDetected = true;
-		}
-	}
-	pieceDetected = false;
-	for (int i = -1; column + i >= 0 && !pieceDetected; i--)
-	{
-		if (!ChessBoard::getBoardSquare(row, column + i)->getOccupied())
-		{
-			validMoves.push_back(Point(row, column + i));
-		}
-		else
-		{
-			pieceDetected = true;
+			for (int j = -1; j <= 1 && ChessBoard::validSquare(row + i * mod, column + j * mod) && !pieceDetected; j++)
+			{
+				if (!ChessBoard::getBoardSquare(row + i * mod, column + i * mod)->getOccupied()) {
+					validMoves.push_back(Point(row + i * mod, column + j * mod));
+				}
+				else
+				{
+					pieceDetected = true;
+				}
+			}
+			pieceDetected = false;
 		}
 	}
 	return validMoves;
