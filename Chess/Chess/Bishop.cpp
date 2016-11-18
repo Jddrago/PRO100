@@ -44,7 +44,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 		}
 	}
 	pieceDetected = false;
-	for (int i = -1; ChessBoard::validSquare(row - i, column - i) && !pieceDetected; i--)
+	for (int i = 1; ChessBoard::validSquare(row - i, column - i) && !pieceDetected; i++)
 	{
 		if (!ChessBoard::getBoardSquare(row - i, column - i)->getOccupied())
 		{
@@ -56,7 +56,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 		}
 	}
 	pieceDetected = false;
-	for (int i = -1; ChessBoard::validSquare(row + i, column - i) && !pieceDetected; i--)
+	for (int i = 1; ChessBoard::validSquare(row + i, column - i) && !pieceDetected; i++)
 	{
 		if (!ChessBoard::getBoardSquare(row + i, column - i)->getOccupied())
 		{

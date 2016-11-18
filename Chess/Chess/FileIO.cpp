@@ -87,7 +87,7 @@ std::string FileIO::ParsePlacement(std::string move)
 
 std::string FileIO::ParseMove(std::string move)
 {
-	if (ChessBoard::validateMoves((move.at(1) - '0' - 1), (move.at(0) - 'a'), (move.at(4) - '0' - 1), (move.at(3) - 'a')))
+	if (ChessBoard::validateMoves((move.at(1) - '0' - 1), (move.at(0) - 'a'), (move.at(4) - '0' - 1), (move.at(3) - 'a')) && ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getOccupied())
 	{
 		ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a')));
 		ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), new BoardSquare());

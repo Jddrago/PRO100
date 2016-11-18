@@ -20,19 +20,16 @@ King::~King()
 
 std::vector<Point> King::getMoves(int row, int column)
 {
-	bool pieceDetected = false;
 	for (int i = -1; i <= 1; i++)
 	{
-		for (int j = -1;  j <= 1 && ChessBoard::validSquare(row + i,column + j) && !pieceDetected; j++)
+		for (int j = -1;  j <= 1 && ChessBoard::validSquare(row + i,column + j); j++)
 		{
-			if (!ChessBoard::getBoardSquare(row + i, column + i)->getOccupied()) {
+			if (!ChessBoard::getBoardSquare(row + i, column + j)->getOccupied()) 
+			{
 				validMoves.push_back(Point(row + i, column + j));
 			}
-			else 
-			{
-				pieceDetected = true;
-			}
 		}
+
 	}
 	return validMoves;
 }
