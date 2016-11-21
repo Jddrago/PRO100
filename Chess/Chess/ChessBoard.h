@@ -15,8 +15,8 @@ public: // public methods
 	static void initBoard();
 	static bool validateMoves(int r1, int c1, int r2, int c2);
 	static bool validSquare(int row, int column);
-	static bool check();
-	static bool checkmate();
+	static bool check(bool playerTurn);
+	static bool checkmate(bool playerTurn);
 
 public:
 	const static int rowMax = 8;

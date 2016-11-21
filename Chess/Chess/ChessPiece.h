@@ -23,6 +23,7 @@ public: // public methods
 	void clearMoveVector();
 	virtual std::vector<Point> getMoves(int row, int column) = 0;
 	void setMoved(bool moved);
+	bool getMoved();
 
 protected: // private class members
 	char m_pieceColor ='\000';

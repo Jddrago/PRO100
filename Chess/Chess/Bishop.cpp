@@ -22,7 +22,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	bool pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row + i,column + i) && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row + i, column + i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row + i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row + i, column + i));
 		}
@@ -34,7 +34,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row - i, column + i) && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row - i, column + i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row - i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row - i, column + i));
 		}
@@ -46,7 +46,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row - i, column - i) && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row - i, column - i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row - i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row - i, column - i));
 		}
@@ -58,7 +58,7 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row + i, column - i) && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row + i, column - i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row + i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row + i, column - i));
 		}

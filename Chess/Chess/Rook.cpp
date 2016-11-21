@@ -22,7 +22,7 @@ std::vector<Point> Rook::getMoves(int row, int column)
 	bool pieceDetected = false;
 	for (int i = 1; row + i < ChessBoard::rowMax && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row + i, column)->getOccupied())
+		if (ChessBoard::getBoardSquare(row + i, column)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row + i, column));
 		}
@@ -34,7 +34,7 @@ std::vector<Point> Rook::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = 1; column + i < ChessBoard::columnMax && !pieceDetected; i++)
 	{
-		if (!ChessBoard::getBoardSquare(row, column + i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row, column + i));
 		}
@@ -46,7 +46,7 @@ std::vector<Point> Rook::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = -1; row + i >= 0 && !pieceDetected; i--)
 	{
-		if (!ChessBoard::getBoardSquare(row + i, column)->getOccupied())
+		if (ChessBoard::getBoardSquare(row + i, column)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row + i, column));
 		}
@@ -58,7 +58,7 @@ std::vector<Point> Rook::getMoves(int row, int column)
 	pieceDetected = false;
 	for (int i = -1; column + i >= 0 && !pieceDetected; i--)
 	{
-		if (!ChessBoard::getBoardSquare(row, column + i)->getOccupied())
+		if (ChessBoard::getBoardSquare(row, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
 		{
 			validMoves.push_back(Point(row, column + i));
 		}

@@ -28,15 +28,19 @@ int main(int argc, char** argv)
 	//if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
 	//fileReader.ParseGame();
 	displayBoard();
-	while (!ChessBoard::checkmate())
+	while (!ChessBoard::checkmate(whitesTurn))
 	{
 		std::string move;
 		std::getline(std::cin, move);
 		if (whitesTurn) {
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'l') {
 				fileReader.ParseGame(move);
-				whitesTurn = false;
+				if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getMoved()) 
+				{
+					whitesTurn = false;
+				}
 				displayBoard();
+
 			}
 			else
 			{
@@ -47,7 +51,10 @@ int main(int argc, char** argv)
 		{
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'd') {
 				fileReader.ParseGame(move);
-				whitesTurn = true;
+				if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getMoved())
+				{
+					whitesTurn = true;
+				}
 				displayBoard();
 			}
 			else

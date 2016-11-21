@@ -59,12 +59,21 @@ bool ChessBoard::validSquare(int row, int column)
 	return (row >= 0 && row < rowMax) && (column >= 0 && column < columnMax);
 }
 
-bool ChessBoard::check()
+bool ChessBoard::check(bool playerTurn)
 {
+	// based on bool check white or black king
+	// get kings' location
+	// compare location against all enemy pieces validmoves
+	// if location is in an enemies validMoves return true
 	return false;
 }
 
-bool ChessBoard::checkmate()
+bool ChessBoard::checkmate(bool playerTurn)
 {
+	// based on bool check white or black king
+	// get kings' location
+	// compare validMoves against all enemy pieces validmoves, remove any coordinates that match
+	// compare location against all enemy pieces validmoves
+	// if validMoves == 0location is in an enemies validMoves return true
 	return false;
 }

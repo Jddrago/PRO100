@@ -20,32 +20,22 @@ Queen::~Queen()
 std::vector<Point> Queen::getMoves(int row, int column)
 {
 	bool pieceDetected = false;
-	for (int mod = 1; mod < ChessBoard::rowMax; mod++)
-	{
+	if (column - 1 < 0) {
 		for (int i = -1; i <= 1; i++)
 		{
-			if (column - 1 < 0) {
-				for (int j = 0; j <= 1 && ChessBoard::validSquare(row + (i * mod), column + (j * mod)); j++)
-				{
-					if (!ChessBoard::getBoardSquare(row + (i * mod), column + (j * mod))->getOccupied()) {
-						validMoves.push_back(Point(row + (i * mod), column + (j * mod)));
-					}
-					else
-					{
-						pieceDetected = true;
-					}
-				}
-				pieceDetected = false;
-			}
-			else 
+			for (int j = 0; j <= 1; j++)
 			{
-				for (int j = -1; j <= 1 && ChessBoard::validSquare(row + (i * mod), column + (j * mod)); j++)
+				for (int mod = 1; mod < ChessBoard::rowMax && ChessBoard::validSquare(row + (i * mod), column + (j * mod)) && !pieceDetected; mod++)
 				{
 					if (!ChessBoard::getBoardSquare(row + (i * mod), column + (j * mod))->getOccupied()) {
 						validMoves.push_back(Point(row + (i * mod), column + (j * mod)));
 					}
 					else
 					{
+						if (ChessBoard::getBoardSquare(row + (i * mod), column + (j * mod))->getPiece()->getPieceColor() != this->getPieceColor())
+						{
+							validMoves.push_back(Point(row + (i * mod), column + (j * mod)));
+						}
 						pieceDetected = true;
 					}
 				}
@@ -53,5 +43,29 @@ std::vector<Point> Queen::getMoves(int row, int column)
 			}
 		}
 	}
+		else
+		{
+			for (int i = -1; i <= 1; i++)
+			{
+				for (int j = -1; j <= 1; j++)
+				{
+					for (int mod = 1; mod < ChessBoard::rowMax && ChessBoard::validSquare(row + (i * mod), column + (j * mod)) && !pieceDetected; mod++)
+					{
+						if (!ChessBoard::getBoardSquare(row + (i * mod), column + (j * mod))->getOccupied()) {
+							validMoves.push_back(Point(row + (i * mod), column + (j * mod)));
+						}
+						else
+						{
+							if (ChessBoard::getBoardSquare(row + (i * mod), column + (j * mod))->getPiece()->getPieceColor() != this->getPieceColor())
+							{
+								validMoves.push_back(Point(row + (i * mod), column + (j * mod)));
+							}
+							pieceDetected = true;
+						}
+					}
+					pieceDetected = false;
+				}
+			}
+		}
 	return validMoves;
 }

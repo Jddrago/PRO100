@@ -24,7 +24,7 @@ std::vector<Point> King::getMoves(int row, int column)
 	{
 		for (int j = -1;  j <= 1 && ChessBoard::validSquare(row + i,column + j); j++)
 		{
-			if (!ChessBoard::getBoardSquare(row + i, column + j)->getOccupied()) 
+			if (ChessBoard::getBoardSquare(row + i, column + j)->getPiece()->getPieceColor() != this->getPieceColor())
 			{
 				validMoves.push_back(Point(row + i, column + j));
 			}

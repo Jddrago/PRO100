@@ -74,3 +74,8 @@ void ChessPiece::setMoved(bool moved)
 {
 	hasMoved = moved;
 }
+
+bool ChessPiece::getMoved()
+{
+	return hasMoved;
+}
