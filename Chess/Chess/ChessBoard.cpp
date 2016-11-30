@@ -62,7 +62,7 @@ bool ChessBoard::validSquare(int row, int column)
 bool ChessBoard::check(bool playerTurn)
 {
 	std::vector<Point> enemyMoves;
-	int kingRow,kingColumn;
+	int kingRow = -1,kingColumn = -1;
 
 	// based on bool check white or black king
 	// get kings' location
@@ -227,7 +227,7 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 			}
 		}
 	}
-	if (inCheck && kingsMoves.size() == 0 && canIntercept(playerTurn, row, column))
+	if (inCheck && kingsMoves.size() == 0 && !canIntercept(playerTurn, row, column))
 	{
 		return true;
 	}
@@ -238,27 +238,20 @@ bool ChessBoard::canIntercept(bool playerTurn, int row, int column)
 {
 	board[row][column]->getPiece()->clearMoveVector();
 	std::vector<Point> enemyMoves = board[row][column]->getPiece()->getMoves(row,column);
-	std::vector<Point> myMoves;
+	bool canIntercept = false;
 	if (playerTurn)
 	{
-		for (int i = 0; i < rowMax; i++)
+		for (int i = 0; i < rowMax && !canIntercept; i++)
 		{
-			for (int j = 0; j < columnMax; j++)
+			for (int j = 0; j < columnMax && !canIntercept; j++)
 			{
 				if (board[i][j]->getPiece()->getPieceType() != 'K')
 				{
 					if (board[i][j]->getPiece()->getPieceColor() == 'l')
 					{
-						board[i][j]->getPiece()->clearMoveVector();
-						myMoves = board[i][j]->getPiece()->getMoves(i, j);
-						for (unsigned int m = 0; m < myMoves.size(); m++) {
-							for (unsigned int p = 0; p < enemyMoves.size(); p++)
-							{
-								if (enemyMoves.at(p).getPointX() == myMoves.at(m).getPointX() && enemyMoves.at(p).getPointY() == myMoves.at(m).getPointY())
-								{
-									return true;
-								}
-							}
+						for (unsigned int p = 0; p < enemyMoves.size() && !canIntercept; p++)
+						{
+							canIntercept = board[i][j]->getPiece()->canMoveAlongTrajectory(i, j, enemyMoves.at(p).getPointX(), enemyMoves.at(p).getPointY());
 						}
 					}
 				}
@@ -267,29 +260,22 @@ bool ChessBoard::canIntercept(bool playerTurn, int row, int column)
 	}
 	else
 	{
-		for (int i = 0; i < rowMax; i++)
+		for (int i = 0; i < rowMax && !canIntercept; i++)
 		{
-			for (int j = 0; j < columnMax; j++)
+			for (int j = 0; j < columnMax && !canIntercept; j++)
 			{
-				if (board[i][j]->getPiece()->getPieceType() == 'K')
+				if (board[i][j]->getPiece()->getPieceType() != 'K')
 				{
 					if (board[i][j]->getPiece()->getPieceColor() == 'd')
 					{
-						board[i][j]->getPiece()->clearMoveVector();
-						myMoves = board[i][j]->getPiece()->getMoves(i, j);
-						for (unsigned int m = 0; m < myMoves.size(); m++) {
-							for (unsigned int p = 0; p < enemyMoves.size(); p++)
-							{
-								if (enemyMoves.at(p).getPointX() == myMoves.at(m).getPointX() && enemyMoves.at(p).getPointY() == myMoves.at(m).getPointY())
-								{
-									return true;
-								}
-							}
+						for (unsigned int p = 0; p < enemyMoves.size() && !canIntercept; p++)
+						{
+							canIntercept = board[i][j]->getPiece()->canMoveAlongTrajectory(i, j, enemyMoves.at(p).getPointX(), enemyMoves.at(p).getPointY());
 						}
 					}
 				}
 			}
 		}
 	}
-	return false;
+	return canIntercept;
 }

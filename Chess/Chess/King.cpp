@@ -33,3 +33,8 @@ std::vector<Point> King::getMoves(int row, int column)
 	}
 	return validMoves;
 }
+
+bool King::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	return false;
+}

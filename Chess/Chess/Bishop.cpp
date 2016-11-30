@@ -85,3 +85,17 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	}
 	return validMoves;
 }
+
+bool Bishop::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	bool canMove = false;
+	if (r1 - r2 == c1 - c2) 
+	{
+		canMove = true;
+	}
+	else if (r1 - r2 == -(c1 - c2) || -(r1 - r2) == c1 - c2) 
+	{
+		canMove = true;
+	}
+	return canMove;
+}

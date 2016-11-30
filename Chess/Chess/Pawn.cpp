@@ -125,3 +125,41 @@ std::vector<Point> Pawn::getMoves(int row, int column)
 	}
 	return validMoves;
 }
+
+bool Pawn::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	bool canMove = false;
+	if (ChessBoard::getBoardSquare(r1, c1)->getPiece()->getPieceColor() == 'l') 
+	{
+		if (!hasMoved) {
+			if ((r1 - r2 == -1 || r1 - r2 == -2) && c1 - c2 == 0)
+			{
+				canMove = true;
+			}
+		}
+		else
+		{
+			if (r1 - r2 == -1 && c1 - c2 == 0)
+			{
+				canMove = true;
+			}
+		}
+	}
+	else if (ChessBoard::getBoardSquare(r1, c1)->getPiece()->getPieceColor() == 'd')
+	{
+		if (!hasMoved) {
+			if ((r1 - r2 == 1 || r1 - r2 == 2) && c1 - c2 == 0)
+			{
+				canMove = true;
+			}
+		}
+		else
+		{
+			if (r1 - r2 == 1 && c1 - c2 == 0)
+			{
+				canMove = true;
+			}
+		}
+	}
+	return canMove;
+}

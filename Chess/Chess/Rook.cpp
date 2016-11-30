@@ -81,3 +81,19 @@ std::vector<Point> Rook::getMoves(int row, int column)
 	}
 	return validMoves;
 }
+
+bool Rook::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	//check polarity of row and column to determin the trajectory
+	//get all moves along that path
+	bool canMove = false;
+	if (c2 - c1 == 0 && (r2 > 0 || r2 > 0))
+	{
+		canMove = true;
+	}
+	else if (r2 - r1 == 0 && (c2 > 0 || c2 < 0))
+	{
+		canMove = true;
+	}
+	return canMove;
+}

@@ -78,3 +78,17 @@ std::vector<Point> Knight::getMoves(int row, int column)
 	}
 	return validMoves;
 }
+
+bool Knight::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	bool canMove = false;
+	if((r1-r2 == 1 || r1-r2 == -1) && (c1-c2 == -2 || c1-c2 == 2))
+	{
+		canMove = true;
+	}
+	else if((r1 - r2 == 2 || r1 - r2 == -2) && (c1 - c2 == -1 || c1 - c2 == 1))
+	{
+		canMove = true;
+	}
+	return canMove;
+}

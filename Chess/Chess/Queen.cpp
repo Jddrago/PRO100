@@ -69,3 +69,25 @@ std::vector<Point> Queen::getMoves(int row, int column)
 		}
 	return validMoves;
 }
+
+bool Queen::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)
+{
+	bool canMove = false;
+	if (r1 - r2 == c1 - c2)
+	{
+		canMove = true;
+	}
+	else if (r1 - r2 == -(c1 - c2) || -(r1 - r2) == c1 - c2)
+	{
+		canMove = true;
+	}
+	if (c2 - c1 == 0 && (r2 > 0 || r2 > 0))
+	{
+		canMove = true;
+	}
+	else if (r2 - r1 == 0 && (c2 > 0 || c2 < 0))
+	{
+		canMove = true;
+	}
+	return canMove;
+}
