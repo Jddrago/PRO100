@@ -22,6 +22,7 @@ public: // public methods
 	std::string toString();
 	void clearMoveVector();
 	virtual std::vector<Point> getMoves(int row, int column) = 0;
+	virtual std::vector<Point> checkPath(int r1, int c1, int r2, int c2) = 0;
 	virtual bool canMoveAlongTrajectory(int r1, int c1, int r2, int c2) = 0;
 	void setMoved(bool moved);
 	bool getMoved();

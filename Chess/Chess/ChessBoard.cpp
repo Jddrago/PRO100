@@ -145,6 +145,7 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 {
 	std::vector<Point> enemyMoves;
 	std::vector<Point> kingsMoves;
+	int kingRow = -1, kingColumn = -1;
 	// based on bool check white or black king
 	// get kings' location
 	// compare location against all enemy pieces validmoves
@@ -164,6 +165,8 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 						{
 							board[i][j]->getPiece()->clearMoveVector();
 							kingsMoves = board[i][j]->getPiece()->getMoves(i, j);
+							kingRow = i;
+							kingColumn = j;
 						}
 					}
 				}
@@ -201,6 +204,8 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 						{
 							board[i][j]->getPiece()->clearMoveVector();
 							kingsMoves = board[i][j]->getPiece()->getMoves(i, j);
+							kingRow = i;
+							kingColumn = j;
 						}
 					}
 				}
@@ -227,17 +232,17 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 			}
 		}
 	}
-	if (inCheck && kingsMoves.size() == 0 && !canIntercept(playerTurn, row, column))
+	if (inCheck && kingsMoves.size() == 0 && !canIntercept(playerTurn, row, column,kingRow,kingColumn))
 	{
 		return true;
 	}
 	return false;
 }
 
-bool ChessBoard::canIntercept(bool playerTurn, int row, int column)
+bool ChessBoard::canIntercept(bool playerTurn, int row, int column, int kingRow, int kingColumn)
 {
 	board[row][column]->getPiece()->clearMoveVector();
-	std::vector<Point> enemyMoves = board[row][column]->getPiece()->getMoves(row,column);
+	std::vector<Point> enemyMoves = board[row][column]->getPiece()->checkPath(row,column,kingRow,kingColumn);
 	bool canIntercept = false;
 	if (playerTurn)
 	{

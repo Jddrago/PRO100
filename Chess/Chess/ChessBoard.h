@@ -17,7 +17,7 @@ public: // public methods
 	static bool validSquare(int row, int column);
 	static bool check(bool playerTurn);
 	static bool checkmate(bool playerTurn, int row, int column);
-	static bool canIntercept(bool playerTurn, int row, int column);
+	static bool canIntercept(bool playerTurn, int row, int column,int kingRow,int kingColumn);
 
 public:
 	const static int rowMax = 8;

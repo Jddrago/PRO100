@@ -24,7 +24,7 @@ std::string FileIO::ParsePlacement(std::string move)
 {
 	std::locale loc = std::locale();
 	std::string piecetype,pieceColor,locationP1,locationP2;
-	ChessPiece* piece;
+	ChessPiece* piece = nullptr;
 	switch (std::toupper(move.at(0), loc))
 	{
 	case 'K':
@@ -79,7 +79,13 @@ std::string FileIO::ParsePlacement(std::string move)
 	GameLogger::Log("%s:Placed %s\n",GameLogger::EnumToString(LogMsgType::Info), move.c_str());
 	if (!ChessBoard::getBoardSquare((move.at(3) - '0'-1), (move.at(2) - 'a'))->getOccupied()) 
 	{
-		ChessBoard::setBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'),new BoardSquare(piece));
+		if (piece != nullptr) {
+			ChessBoard::setBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'), new BoardSquare(piece));
+		}
+		else
+		{
+			ChessBoard::setBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'), new BoardSquare());
+		}
 		ChessBoard::getBoardSquare((move.at(3) - '0' - 1), (move.at(2) - 'a'))->setOccupied(true);
 	}
 	return "Placed " + pieceColor + " " + piecetype + " at " + std::toupper(move.at(2), loc) + move.at(3);
