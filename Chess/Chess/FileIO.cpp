@@ -87,7 +87,7 @@ std::string FileIO::ParsePlacement(std::string move)
 
 std::string FileIO::ParseMove(std::string move, bool& pieceMoved,bool playerTurn, bool& checkmate)
 {
-	ChessPiece* tempPiece;
+	ChessPiece* tempPiece = nullptr;
 	std::string output;
 	if (ChessBoard::validateMoves((move.at(1) - '0' - 1), (move.at(0) - 'a'), (move.at(4) - '0' - 1), (move.at(3) - 'a')) && ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getOccupied())
 	{
@@ -104,7 +104,13 @@ std::string FileIO::ParseMove(std::string move, bool& pieceMoved,bool playerTurn
 		if(ChessBoard::check(playerTurn))
 		{
 			ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a')));
-			ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), new BoardSquare(tempPiece));
+			if (tempPiece != nullptr) {
+				ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), new BoardSquare(tempPiece));
+			}
+			else 
+			{
+				ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), new BoardSquare());
+			}
 			ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->setOccupied(false);
 			ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->setMoved(true);
 			ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->setOccupied(true);
