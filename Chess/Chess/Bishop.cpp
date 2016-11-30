@@ -22,48 +22,64 @@ std::vector<Point> Bishop::getMoves(int row, int column)
 	bool pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row + i,column + i) && !pieceDetected; i++)
 	{
-		if (ChessBoard::getBoardSquare(row + i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
+		if (!ChessBoard::getBoardSquare(row + i, column + i)->getOccupied())
 		{
 			validMoves.push_back(Point(row + i, column + i));
 		}
 		else
 		{
+			if (ChessBoard::getBoardSquare(row + i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
+			{
+				validMoves.push_back(Point(row + i, column + i));
+			}
 			pieceDetected = true;
 		}
 	}
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row - i, column + i) && !pieceDetected; i++)
 	{
-		if (ChessBoard::getBoardSquare(row - i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
+		if (!ChessBoard::getBoardSquare(row - i, column + i)->getOccupied())
 		{
 			validMoves.push_back(Point(row - i, column + i));
 		}
 		else
 		{
+			if (ChessBoard::getBoardSquare(row - i, column + i)->getPiece()->getPieceColor() != this->getPieceColor())
+			{
+				validMoves.push_back(Point(row - i, column + i));
+			}
 			pieceDetected = true;
 		}
 	}
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row - i, column - i) && !pieceDetected; i++)
 	{
-		if (ChessBoard::getBoardSquare(row - i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
+		if (!ChessBoard::getBoardSquare(row - i, column - i)->getOccupied())
 		{
 			validMoves.push_back(Point(row - i, column - i));
 		}
 		else
 		{
+			if (ChessBoard::getBoardSquare(row - i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
+			{
+				validMoves.push_back(Point(row - i, column - i));
+			}
 			pieceDetected = true;
 		}
 	}
 	pieceDetected = false;
 	for (int i = 1; ChessBoard::validSquare(row + i, column - i) && !pieceDetected; i++)
 	{
-		if (ChessBoard::getBoardSquare(row + i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
+		if (!ChessBoard::getBoardSquare(row + i, column - i)->getOccupied())
 		{
 			validMoves.push_back(Point(row + i, column - i));
 		}
 		else
 		{
+			if (ChessBoard::getBoardSquare(row + i, column - i)->getPiece()->getPieceColor() != this->getPieceColor())
+			{
+				validMoves.push_back(Point(row + i, column - i));
+			}
 			pieceDetected = true;
 		}
 	}

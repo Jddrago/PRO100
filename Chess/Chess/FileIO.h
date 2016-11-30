@@ -15,10 +15,10 @@ public:
 
 public:
 	std::string ParsePlacement(std::string move);
-	std::string ParseMove(std::string move);
+	std::string ParseMove(std::string move, bool& pieceMoved,bool playerturn,bool& checkmate);
 	std::string ParseCastling(std::string move);
-	void ParseGame();
-	void ParseGame(std::string move);
+	bool ParseGame(bool playerTurn, bool& checkmate);
+	bool ParseGame(std::string move, bool playerTurn, bool& checkmate);
 	bool Parser(const char * const filename);
 
 private:

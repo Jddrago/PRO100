@@ -85,16 +85,36 @@ std::string FileIO::ParsePlacement(std::string move)
 	return "Placed " + pieceColor + " " + piecetype + " at " + std::toupper(move.at(2), loc) + move.at(3);
 }
 
-std::string FileIO::ParseMove(std::string move)
+std::string FileIO::ParseMove(std::string move, bool& pieceMoved,bool playerTurn, bool& checkmate)
 {
+	ChessPiece* tempPiece;
+	std::string output;
 	if (ChessBoard::validateMoves((move.at(1) - '0' - 1), (move.at(0) - 'a'), (move.at(4) - '0' - 1), (move.at(3) - 'a')) && ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getOccupied())
 	{
+		if (ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->getOccupied()) 
+		{
+			tempPiece = ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->getPiece();
+		}
 		ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a')));
 		ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), new BoardSquare());
 		ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->setOccupied(false);
 		ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->getPiece()->setMoved(true);
 		ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->setOccupied(true);
-		return "Moved piece at " + move.substr(0, 2) + " to " + move.substr(3, 2);
+		pieceMoved = true;
+		if(ChessBoard::check(playerTurn))
+		{
+			ChessBoard::setBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'), ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a')));
+			ChessBoard::setBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'), new BoardSquare(tempPiece));
+			ChessBoard::getBoardSquare((move.at(4) - '0' - 1), (move.at(3) - 'a'))->setOccupied(false);
+			ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->setMoved(true);
+			ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->setOccupied(true);
+			pieceMoved = false;
+			return "That move would place you in check";
+		}
+		output = "Moved piece at " + move.substr(0, 2) + " to " + move.substr(3, 2);
+		GameLogger::Log("%s:%s\n", GameLogger::EnumToString(LogMsgType::Info), output.c_str());
+		checkmate = ChessBoard::checkmate(!playerTurn, (move.at(4) - '0' - 1), (move.at(3) - 'a'));
+		return output;
 	}
 	else 
 	{
@@ -122,8 +142,9 @@ bool FileIO::Parser(const char * const filename)
 	}
 }
 
-void FileIO::ParseGame()
+bool FileIO::ParseGame(bool playerTurn, bool& checkmate)
 {
+	bool pieceMoved = false;
 	char fileLine[256];
 	while (!m_moveStream.eof()) 
 	{
@@ -136,7 +157,7 @@ void FileIO::ParseGame()
 		else if (std::regex_match(fileLine, std::regex("[a-h][1-8]\\s[a-h][1-8]"))) 
 		{
 			std::cout << fileLine << std::endl;
-			std::cout << ParseMove(fileLine) << std::endl;
+			std::cout << ParseMove(fileLine, pieceMoved,playerTurn,checkmate) << std::endl;
 		}
 		else if (std::regex_match(fileLine, std::regex("[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]"))) 
 		{
@@ -145,10 +166,12 @@ void FileIO::ParseGame()
 		}
 	}
 	m_moveStream.close();
+	return pieceMoved;
 }
 
-void FileIO::ParseGame(std::string move)
+bool FileIO::ParseGame(std::string move, bool playerTurn, bool& checkmate)
 {
+	bool pieceMoved = false;
 	if (std::regex_match(move, std::regex("[KQBNRP][ld][a-h][1-8]")))
 	{
 		std::cout << move << std::endl;
@@ -157,7 +180,7 @@ void FileIO::ParseGame(std::string move)
 	else if (std::regex_match(move, std::regex("[a-h][1-8]\\s[a-h][1-8]")))
 	{
 		std::cout << move << std::endl;
-		std::cout << ParseMove(move) << std::endl;
+		std::cout << ParseMove(move,pieceMoved,playerTurn,checkmate) << std::endl;
 	}
 	else if (std::regex_match(move, std::regex("[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]\\s[a-h][1-8]")))
 	{
@@ -168,4 +191,5 @@ void FileIO::ParseGame(std::string move)
 	{
 		std::cout << "Invalid move notation. Please use standard notations for moves" << std::endl;
 	}
+	return pieceMoved;
 }

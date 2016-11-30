@@ -61,19 +61,235 @@ bool ChessBoard::validSquare(int row, int column)
 
 bool ChessBoard::check(bool playerTurn)
 {
+	std::vector<Point> enemyMoves;
+	int kingRow,kingColumn;
+
 	// based on bool check white or black king
 	// get kings' location
 	// compare location against all enemy pieces validmoves
 	// if location is in an enemies validMoves return true
+	if (playerTurn) 
+	{
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceType() == 'K') 
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'l')
+					{
+						kingRow = i;
+						kingColumn = j;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceColor() == 'd')
+				{
+					board[i][j]->getPiece()->clearMoveVector();
+					enemyMoves = board[i][j]->getPiece()->getMoves(i,j);
+					for (unsigned int p = 0; p < enemyMoves.size(); p++)
+					{
+						if (enemyMoves.at(p).getPointX() == kingRow && enemyMoves.at(p).getPointY() == kingColumn) 
+						{
+							return true;
+						}
+					}
+				}	
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceType() == 'K')
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'd')
+					{
+						kingRow = i;
+						kingColumn = j;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceColor() == 'l')
+				{
+					board[i][j]->getPiece()->clearMoveVector();
+					enemyMoves = board[i][j]->getPiece()->getMoves(i, j);
+					for (unsigned int p = 0; p < enemyMoves.size(); p++)
+					{
+						if (enemyMoves.at(p).getPointX() == kingRow && enemyMoves.at(p).getPointY() == kingColumn)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
 	return false;
 }
 
-bool ChessBoard::checkmate(bool playerTurn)
+bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 {
+	std::vector<Point> enemyMoves;
+	std::vector<Point> kingsMoves;
 	// based on bool check white or black king
 	// get kings' location
-	// compare validMoves against all enemy pieces validmoves, remove any coordinates that match
 	// compare location against all enemy pieces validmoves
-	// if validMoves == 0location is in an enemies validMoves return true
+	// compare validMoves against all enemy pieces validmoves, remove any coordinates that match
+	// if validMoves == 0 && location is in an enemies validMoves return true
+	bool inCheck = check(playerTurn);
+	if (inCheck) {
+		if (playerTurn)
+		{
+			for (int i = 0; i < rowMax; i++)
+			{
+				for (int j = 0; j < columnMax; j++)
+				{
+					if (board[i][j]->getPiece()->getPieceType() == 'K')
+					{
+						if (board[i][j]->getPiece()->getPieceColor() == 'l')
+						{
+							board[i][j]->getPiece()->clearMoveVector();
+							kingsMoves = board[i][j]->getPiece()->getMoves(i, j);
+						}
+					}
+				}
+			}
+			for (int i = 0; i < rowMax; i++)
+			{
+				for (int j = 0; j < columnMax; j++)
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'd')
+					{
+						board[i][j]->getPiece()->clearMoveVector();
+						enemyMoves = board[i][j]->getPiece()->getMoves(i, j);
+						for (unsigned int k = 0; k < kingsMoves.size(); k++) {
+							for (unsigned int p = 0; p < enemyMoves.size() && kingsMoves.size() != 0; p++)
+							{
+								if (enemyMoves.at(p).getPointX() == kingsMoves.at(k).getPointX() && enemyMoves.at(p).getPointY() == kingsMoves.at(k).getPointY())
+								{
+									kingsMoves.erase(kingsMoves.begin() + k);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < rowMax; i++)
+			{
+				for (int j = 0; j < columnMax; j++)
+				{
+					if (board[i][j]->getPiece()->getPieceType() == 'K')
+					{
+						if (board[i][j]->getPiece()->getPieceColor() == 'd')
+						{
+							board[i][j]->getPiece()->clearMoveVector();
+							kingsMoves = board[i][j]->getPiece()->getMoves(i, j);
+						}
+					}
+				}
+			}
+			for (int i = 0; i < rowMax; i++)
+			{
+				for (int j = 0; j < columnMax; j++)
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'l')
+					{
+						board[i][j]->getPiece()->clearMoveVector();
+						enemyMoves = board[i][j]->getPiece()->getMoves(i, j);
+						for (unsigned int k = 0; k < kingsMoves.size(); k++) {
+							for (unsigned int p = 0; p < enemyMoves.size() && k < kingsMoves.size(); p++)
+							{
+								if (enemyMoves.at(p).getPointX() == kingsMoves.at(k).getPointX() && enemyMoves.at(p).getPointY() == kingsMoves.at(k).getPointY())
+								{
+									kingsMoves.erase(kingsMoves.begin() + k);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if (inCheck && kingsMoves.size() == 0 && canIntercept(playerTurn, row, column))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool ChessBoard::canIntercept(bool playerTurn, int row, int column)
+{
+	board[row][column]->getPiece()->clearMoveVector();
+	std::vector<Point> enemyMoves = board[row][column]->getPiece()->getMoves(row,column);
+	std::vector<Point> myMoves;
+	if (playerTurn)
+	{
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceType() != 'K')
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'l')
+					{
+						board[i][j]->getPiece()->clearMoveVector();
+						myMoves = board[i][j]->getPiece()->getMoves(i, j);
+						for (unsigned int m = 0; m < myMoves.size(); m++) {
+							for (unsigned int p = 0; p < enemyMoves.size(); p++)
+							{
+								if (enemyMoves.at(p).getPointX() == myMoves.at(m).getPointX() && enemyMoves.at(p).getPointY() == myMoves.at(m).getPointY())
+								{
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				if (board[i][j]->getPiece()->getPieceType() == 'K')
+				{
+					if (board[i][j]->getPiece()->getPieceColor() == 'd')
+					{
+						board[i][j]->getPiece()->clearMoveVector();
+						myMoves = board[i][j]->getPiece()->getMoves(i, j);
+						for (unsigned int m = 0; m < myMoves.size(); m++) {
+							for (unsigned int p = 0; p < enemyMoves.size(); p++)
+							{
+								if (enemyMoves.at(p).getPointX() == myMoves.at(m).getPointX() && enemyMoves.at(p).getPointY() == myMoves.at(m).getPointY())
+								{
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	return false;
 }

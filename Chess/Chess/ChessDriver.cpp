@@ -19,27 +19,42 @@ void displayBoard()
 int main(int argc, char** argv) 
 {
 	bool whitesTurn = true;
+	bool checkmate = false;
 	ChessBoard::initBoard();
 	//displayBoard();
 	FileIO fileReader;
 	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
 	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
-	fileReader.ParseGame();
-	//if (!fileReader.Parser("..\\Data\\MoveTests.txt")) return -1;
-	//fileReader.ParseGame();
+	fileReader.ParseGame(whitesTurn,checkmate);
+	//if (!fileReader.Parser("..\\Data\\Check.txt")) return -1;
+	//fileReader.ParseGame(!whitesTurn);
 	displayBoard();
-	while (!ChessBoard::checkmate(whitesTurn))
+	while (!checkmate)
 	{
 		std::string move;
 		std::getline(std::cin, move);
 		if (whitesTurn) {
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'l') {
-				fileReader.ParseGame(move);
-				if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getMoved()) 
+				if (fileReader.ParseGame(move, whitesTurn, checkmate))
 				{
 					whitesTurn = false;
+					if (!checkmate) {
+						if (ChessBoard::check(whitesTurn))
+						{
+							std::cout << "Black King is in check\n";
+						}
+						else
+						{
+							std::cout << "Black King is not in check\n";
+						}
+					}
+					else 
+					{
+						std::cout << "Checkmate on Dark King\n";
+					}
 				}
 				displayBoard();
+
 
 			}
 			else
@@ -50,10 +65,24 @@ int main(int argc, char** argv)
 		else 
 		{
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'd') {
-				fileReader.ParseGame(move);
-				if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getMoved())
+				if (fileReader.ParseGame(move,whitesTurn,checkmate)) 
 				{
 					whitesTurn = true;
+					if (!checkmate) 
+					{
+						if (ChessBoard::check(whitesTurn))
+						{
+							std::cout << "Light King is in check\n";
+						}
+						else
+						{
+							std::cout << "Light King is not in check\n";
+						}
+					}
+					else 
+					{
+						std::cout << "Checkmate on Light King\n";
+					}
 				}
 				displayBoard();
 			}
