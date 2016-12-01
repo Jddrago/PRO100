@@ -83,7 +83,7 @@ std::vector<Point> Knight::checkPath(int r1, int c1, int r2, int c2)
 {
 	if(ChessBoard::validateMoves(r1,c1,r2,c2))
 	{
-		//clearMoveVector();
+		clearMoveVector();
 		validMoves.push_back(Point(r1,c1));
 	}
 	return validMoves;

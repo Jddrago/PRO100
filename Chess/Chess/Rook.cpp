@@ -84,18 +84,43 @@ std::vector<Point> Rook::getMoves(int row, int column)
 
 std::vector<Point> Rook::checkPath(int r1, int c1, int r2, int c2)
 {
+	int loopMod = 1;
 	if (r1 - r2 == 0 && c1 - c2 > 0)
-	{
-		for (int i = 1; ChessBoard::validSquare(r1, c1 + i) && c1 + i != c2; i++)
-		{
-			validMoves.push_back(Point(r1, c1 + i));
-		}
-	}
-	else if (r1 - r2 == 0 && c1 - c2 < 0)
 	{
 		for (int i = 1; ChessBoard::validSquare(r1, c1 - i) && c1 - i != c2; i++)
 		{
 			validMoves.push_back(Point(r1, c1 - i));
+			loopMod = i + 1;
+		}
+		if (r1 == r2 && c1 - loopMod == c2)
+		{
+			validMoves.push_back(Point(r2, c2));
+			if (ChessBoard::validSquare(r2, c2 - 1)) 
+			{
+				if (!ChessBoard::getBoardSquare(r2, c2 - 1)->getOccupied()) 
+				{
+					validMoves.push_back(Point(r2, c2 - 1));
+				}
+			}
+		}
+	}
+	else if (r1 - r2 == 0 && c1 - c2 < 0)
+	{
+		for (int i = 1; ChessBoard::validSquare(r1, c1 + i) && c1 + i != c2; i++)
+		{
+			validMoves.push_back(Point(r1, c1 + i));
+			loopMod = i + 1;
+		}
+		if (r1 == r2 && c1 + loopMod == c2)
+		{
+			validMoves.push_back(Point(r2, c2));
+			if (ChessBoard::validSquare(r2, c2 + 1))
+			{
+				if (!ChessBoard::getBoardSquare(r2, c2 + 1)->getOccupied())
+				{
+					validMoves.push_back(Point(r2, c2 + 1));
+				}
+			}
 		}
 	}
 	else if (r1 - r2 > 0 && c1 - c2 == 0)
@@ -103,13 +128,37 @@ std::vector<Point> Rook::checkPath(int r1, int c1, int r2, int c2)
 		for (int i = 1; ChessBoard::validSquare(r1 - i, c1) && r1 - i != r2; i++)
 		{
 			validMoves.push_back(Point(r1 - i, c1));
+			loopMod = i + 1;
+		}
+		if (r1 - loopMod == r2 && c1 == c2)
+		{
+			validMoves.push_back(Point(r2, c2));
+			if (ChessBoard::validSquare(r2 - 1, c2))
+			{
+				if (!ChessBoard::getBoardSquare(r2 - 1, c2)->getOccupied())
+				{
+					validMoves.push_back(Point(r2 - 1, c2));
+				}
+			}
 		}
 	}
 	else if (r1 - r2 < 0 && c1 - c2 == 0)
 	{
-		for (int i = 1; ChessBoard::validSquare(r1 - i, c1) && r1 + i != r2; i++)
+		for (int i = 1; ChessBoard::validSquare(r1 + i, c1) && r1 + i != r2; i++)
 		{
 			validMoves.push_back(Point(r1 + i, c1));
+			loopMod = i + 1;
+		}
+		if (r1 + loopMod == r2 && c1 == c2)
+		{
+			validMoves.push_back(Point(r2, c2));
+			if (ChessBoard::validSquare(r2 + 1, c2))
+			{
+				if (!ChessBoard::getBoardSquare(r2 + 1, c2)->getOccupied())
+				{
+					validMoves.push_back(Point(r2 + 1, c2));
+				}
+			}
 		}
 	}
 	return validMoves;

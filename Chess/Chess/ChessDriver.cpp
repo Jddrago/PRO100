@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	//displayBoard();
 	FileIO fileReader;
 	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
-	if (!fileReader.Parser("..\\Data\\QueenBishopPinMate.txt")) return -1;
+	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
 	fileReader.ParseGame(whitesTurn,checkmate);
 	//if (!fileReader.Parser("..\\Data\\Check.txt")) return -1;
 	//fileReader.ParseGame(!whitesTurn);

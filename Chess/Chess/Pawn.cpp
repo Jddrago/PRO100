@@ -128,7 +128,71 @@ std::vector<Point> Pawn::getMoves(int row, int column)
 
 std::vector<Point> Pawn::checkPath(int r1, int c1, int r2, int c2)
 {
-	return std::vector<Point>();
+	if (ChessBoard::getBoardSquare(r1, c1)->getPiece()->getPieceColor() == 'l')
+	{
+		if (!hasMoved) 
+		{
+			if (r1 + 1 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 + 1 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 + 2 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 + 2 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+		}
+		else {
+			if (r1 + 1 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 + 1 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+		}
+	}
+	else if (ChessBoard::getBoardSquare(r1, c1)->getPiece()->getPieceColor() == 'd')
+	{
+		if (!hasMoved)
+		{
+			if (r1 - 1 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 - 1 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 - 2 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 - 2 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+		}
+		else {
+			if (r1 - 1 == r2 && c1 + 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+			else if (r1 - 1 == r2 && c1 - 1 == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
+		}
+	}
+	return validMoves;
 }
 
 bool Pawn::canMoveAlongTrajectory(int r1, int c1, int r2, int c2)

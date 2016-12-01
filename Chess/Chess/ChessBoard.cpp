@@ -238,8 +238,9 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 			{
 				for (unsigned int k = 0; k < kingsMoves.size(); k++)
 				{
+					board[i][j]->getPiece()->clearMoveVector();
 					cushionMoves = board[i][j]->getPiece()->checkPath(i, j, kingsMoves.at(k).getPointX(), kingsMoves.at(k).getPointY());
-					for (unsigned int c = 0; c < cushionMoves.size() && 0 > kingsMoves.size(); c++)
+					for (unsigned int c = 0; c < cushionMoves.size() && 0 < kingsMoves.size(); c++)
 					{
 						if (cushionMoves.at(c).getPointX() == kingsMoves.at(k).getPointX() && cushionMoves.at(c).getPointY() == kingsMoves.at(k).getPointY())
 						{
