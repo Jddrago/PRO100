@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 	//displayBoard();
 	FileIO fileReader;
 	if (!GameLogger::Initialize("..\\Logs\\","Chess.log")) return -1;
-	if (!fileReader.Parser("..\\Data\\Placement.txt")) return -1;
+	if (!fileReader.Parser("..\\Data\\QueenBishopPinMate.txt")) return -1;
 	fileReader.ParseGame(whitesTurn,checkmate);
 	//if (!fileReader.Parser("..\\Data\\Check.txt")) return -1;
 	//fileReader.ParseGame(!whitesTurn);
@@ -34,6 +34,7 @@ int main(int argc, char** argv)
 		std::string move;
 		std::getline(std::cin, move);
 		if (whitesTurn) {
+			std::cout << "Whites turn" << std::endl;
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'l') {
 				if (fileReader.ParseGame(move, whitesTurn, checkmate))
 				{
@@ -64,6 +65,7 @@ int main(int argc, char** argv)
 		}
 		else 
 		{
+			std::cout << "Blacks turn" << std::endl;
 			if (ChessBoard::getBoardSquare((move.at(1) - '0' - 1), (move.at(0) - 'a'))->getPiece()->getPieceColor() == 'd') {
 				if (fileReader.ParseGame(move,whitesTurn,checkmate)) 
 				{
@@ -92,6 +94,6 @@ int main(int argc, char** argv)
 			}
 		}
 	}
-
+	std::cout << "End of game\n";
 	return 0;
 }

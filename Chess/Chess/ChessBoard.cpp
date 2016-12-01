@@ -1,4 +1,5 @@
 #include "ChessBoard.h"
+#include <iostream>
 
 BoardSquare* ChessBoard::board[ChessBoard::rowMax][ChessBoard::columnMax];
 
@@ -146,12 +147,8 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 	std::vector<Point> enemyMoves;
 	std::vector<Point> kingsMoves;
 	int kingRow = -1, kingColumn = -1;
-	// based on bool check white or black king
-	// get kings' location
-	// compare location against all enemy pieces validmoves
-	// compare validMoves against all enemy pieces validmoves, remove any coordinates that match
-	// if validMoves == 0 && location is in an enemies validMoves return true
 	bool inCheck = check(playerTurn);
+
 	if (inCheck) {
 		if (playerTurn)
 		{
@@ -232,6 +229,29 @@ bool ChessBoard::checkmate(bool playerTurn, int row, int column)
 			}
 		}
 	}
+	if(kingsMoves.size()>0)
+	{
+		std::vector<Point> cushionMoves;
+		for (int i = 0; i < rowMax; i++)
+		{
+			for (int j = 0; j < columnMax; j++)
+			{
+				for (unsigned int k = 0; k < kingsMoves.size(); k++)
+				{
+					cushionMoves = board[i][j]->getPiece()->checkPath(i, j, kingsMoves.at(k).getPointX(), kingsMoves.at(k).getPointY());
+					for (unsigned int c = 0; c < cushionMoves.size() && 0 > kingsMoves.size(); c++)
+					{
+						if (cushionMoves.at(c).getPointX() == kingsMoves.at(k).getPointX() && cushionMoves.at(c).getPointY() == kingsMoves.at(k).getPointY())
+						{
+							kingsMoves.erase(kingsMoves.begin() + k);
+						}
+					}
+					
+				}
+			}
+		}
+	}
+	std::cout << kingsMoves.size() << std::endl;
 	if (inCheck && kingsMoves.size() == 0 && !canIntercept(playerTurn, row, column,kingRow,kingColumn))
 	{
 		return true;

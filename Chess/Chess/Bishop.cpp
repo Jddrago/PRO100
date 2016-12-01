@@ -90,30 +90,46 @@ std::vector<Point> Bishop::checkPath(int r1, int c1, int r2, int c2)
 {
 	if (r1 - r2 > 0 && c1 - c2 > 0)
 	{
-		for (int i = 1; ChessBoard::validSquare(r1 + i, c1 + i) && c1 + i != c2 && r1 + i != r2; i++)
+		for (int i = 1; ChessBoard::validSquare(r1 - i, c1 - i) && c1 - i != c2 && r1 - i != r2; i++)
 		{
-			validMoves.push_back(Point(r1 + i, c1 + i));
+			validMoves.push_back(Point(r1 - i, c1 - i));
+			if (r1 - 1 == r1 && c1 - i == c2) 
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
 		}
 	}
 	else if (r1 - r2 < 0 && c1 - c2 < 0)
 	{
-		for (int i = 1; ChessBoard::validSquare(r1 - i, c1 - i) && c1 - i != c2 && r1 - i != r2; i++)
+		for (int i = 1; ChessBoard::validSquare(r1 + i, c1 + i) && c1 + i != c2 && r1 + i != r2; i++)
 		{
-			validMoves.push_back(Point(r1 - i, c1 - i));
+			validMoves.push_back(Point(r1 + i, c1 + i));
+			if (r1 + 1 == r1 && c1 + i == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
 		}
 	}
 	else if (r1 - r2 < 0 && c1 - c2 > 0)
 	{
-		for (int i = 1; ChessBoard::validSquare(r1 - i, c1 + i) && c1 + i != c2 && r1 - i != r2; i++)
+		for (int i = 1; ChessBoard::validSquare(r1 + i, c1 - i) && c1 - i != c2 && r1 + i != r2; i++)
 		{
-			validMoves.push_back(Point(r1 - i, c1 + i));
+			validMoves.push_back(Point(r1 + i, c1 - i));
+			if (r1 + 1 == r1 && c1 - i == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
 		}
 	}
 	else if (r1 - r2 > 0 && c1 - c2 < 0)
 	{
-		for (int i = 1; ChessBoard::validSquare(r1 + i, c1 - i) && c1 - i != c2 && r1 + i != r2; i++)
+		for (int i = 1; ChessBoard::validSquare(r1 - i, c1 + i) && c1 + i != c2 && r1 - i != r2; i++)
 		{
-			validMoves.push_back(Point(r1 + i, c1 - i));
+			validMoves.push_back(Point(r1 - i, c1 + i));
+			if (r1 - 1 == r1 && c1 + i == c2)
+			{
+				validMoves.push_back(Point(r2, c2));
+			}
 		}
 	}
 	return validMoves;
